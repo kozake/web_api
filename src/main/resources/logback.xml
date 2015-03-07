@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <Pattern>%d{yyyy/MM/dd,HH:mm:ss.SSS},[%t],%m%n</Pattern>
+    </encoder>
+  </appender>
+
+  <!-- SQL -->
+  <logger name="hoge.web.app">
+    <level value="DEBUG" />
+    <appender-ref ref="stdout" />
+  </logger>
+
+  <root level="OFF"/>
+</configuration>

@@ -1,0 +1,55 @@
+apply plugin: 'war'
+apply plugin: 'ivy-publish'
+apply plugin: 'com.bmuschko.tomcat'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.0'
+    }
+}
+
+
+version = '1.0'
+group = 'web_api'
+archivesBaseName = 'web_api'
+
+compileJava.options.encoding = 'UTF-8'
+javadoc.options.encoding = 'UTF-8'
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = "sources"
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier 'javadoc'
+    from javadoc.destinationDir
+}
+
+jar.dependsOn sourceJar, javadocJar
+
+dependencies {
+    compile 'org.glassfish.jersey.containers:jersey-container-servlet-core:2.16'
+    compile 'org.slf4j:slf4j-api:1.7.10'
+    compile 'ch.qos.logback:logback-core:1.1.2'
+    compile 'ch.qos.logback:logback-classic:1.1.2'
+    compile 'commons-dbutils:commons-dbutils:1.6'
+    runtime 'com.h2database:h2:1.4.186'
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    tomcat 'org.apache.tomcat.embed:tomcat-embed-core:8.0.18'
+    tomcat 'org.apache.tomcat.embed:tomcat-embed-core:8.0.18'
+    tomcat 'org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.18'
+    tomcat('org.apache.tomcat.embed:tomcat-embed-jasper:8.0.18') {
+        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+    }
+    runtime 'org.glassfish.jersey.media:jersey-media-json-jackson:2.16'
+
+}
+
+repositories {
+    jcenter()
+}
