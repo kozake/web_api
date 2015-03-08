@@ -67,13 +67,8 @@ public class MasterResource {
     @Path("/employees/{id}")
     @Produces("application/json; charset=UTF-8")
     public Employee getEmployee(@PathParam("id") Integer id) throws SQLException {
-
-        Optional<Employee> emp = Employee.findBy(id);
-        if (emp.isPresent()) {
-            return emp.get();
-        } else {
-            throw NOT_FOUND(String.format("No found id [%1$s]", id));
-        }
+        return Employee.findBy(id)
+                .orElseThrow(() -> NOT_FOUND(String.format("No found id [%1$s]", id)));
     }
 
     @GET
