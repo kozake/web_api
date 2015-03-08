@@ -9,7 +9,6 @@ public class Database {
     private static Connection conn;
 
     public static void init() throws Exception {
-        Class.forName("org.h2.Driver");
         conn = DriverManager.getConnection("jdbc:h2:mem:play;MODE=MYSQL");
 
         conn.createStatement().execute(
