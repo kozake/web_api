@@ -2,11 +2,12 @@ package hoge.web.app.rest.api;
 
 import hoge.web.app.rest.api.data.Message;
 
+import java.sql.SQLException;
+
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
-import java.net.HttpURLConnection;
-import java.sql.SQLException;
 
 @Provider
 public class SqlExceptionHandler implements ExceptionMapper<SQLException> {
@@ -20,7 +21,7 @@ public class SqlExceptionHandler implements ExceptionMapper<SQLException> {
                 .setMoreInfo("http://developers.company.com/errors/I-0401")
                 .build();
 
-        return Response.status(HttpURLConnection.HTTP_INTERNAL_ERROR)
+        return Response.status(Status.INTERNAL_SERVER_ERROR)
                 .entity(msg)
                 .build();
     }
